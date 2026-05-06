@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api";
-import AppLayout from "../tempLayouts/AppLayout";
+import AppLayout from "../layouts/AppLayout";
 
 export default function DashboardPage() {
   const [tasks, setTasks] = useState([]);

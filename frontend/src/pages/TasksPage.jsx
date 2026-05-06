@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../api";
-import AppLayout from "../tempLayouts/AppLayout";
+import AppLayout from "../layouts/AppLayout";
 
 export default function TasksPage() {
   const { projectId } = useParams();
