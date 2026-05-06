@@ -6,23 +6,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// TEMP USERS
+// TEMP USER (for testing)
 const users = [
   {
-    email: "admin@test.com",
-    password: "123456",
-    role: "admin",
-  },
-  {
-    email: "member@test.com",
-    password: "123456",
-    role: "member",
-  },
+  email: "admin@test.com",
+  password: "123456",
+  role: "admin",
+},
+{
+  email: "member@test.com",
+  password: "123456",
+  role: "member",
+},
 ];
 
-// TEST ROUTE
 app.get("/", (req, res) => {
-  res.send("Backend working 🚀");
+  res.send("Backend running successfully");
 });
 
 // LOGIN API
@@ -45,8 +44,7 @@ app.post("/login", (req, res) => {
 
   res.status(401).json({ message: "Invalid credentials" });
 });
-
-// In-memory projects
+// In-memory projects (temporary)
 let projects = [];
 
 // GET all projects
@@ -67,18 +65,36 @@ app.post("/projects", (req, res) => {
 
   res.json(newProject);
 });
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
 
+  if (email === user.email && password === user.password) {
+    return res.json({
+      token: "fake-jwt-token",
+      user: { email },
+    });
+  }
+
+  res.status(401).json({ message: "Invalid credentials" });
+});
+
+// TEST ROUTE
+app.get("/", (req, res) => {
+  res.send("Backend working 🚀");
+});
+
+app.listen(5000, () => {
+  console.log("Server running on http://localhost:5000");
+});
 // In-memory tasks
 let tasks = [];
 
 // GET tasks by project
 app.get("/tasks/:projectId", (req, res) => {
   const { projectId } = req.params;
-
   const projectTasks = tasks.filter(
     (t) => t.projectId == projectId
   );
-
   res.json(projectTasks);
 });
 
@@ -94,7 +110,6 @@ app.post("/tasks", (req, res) => {
   };
 
   tasks.push(newTask);
-
   res.json(newTask);
 });
 
@@ -108,11 +123,4 @@ app.put("/tasks/:id", (req, res) => {
   );
 
   res.json({ message: "Updated" });
-});
-
-// PORT
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
