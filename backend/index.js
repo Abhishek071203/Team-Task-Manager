@@ -20,6 +20,10 @@ const users = [
 },
 ];
 
+app.get("/", (req, res) => {
+  res.send("Backend running successfully");
+});
+
 // LOGIN API
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
