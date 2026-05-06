@@ -3,7 +3,11 @@ import cors from "cors";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json());
 
 // TEMP USER (for testing)
@@ -43,6 +47,10 @@ app.post("/login", (req, res) => {
   }
 
   res.status(401).json({ message: "Invalid credentials" });
+});
+
+app.get("/test", (req, res) => {
+  res.json({ message: "API working" });
 });
 // In-memory projects (temporary)
 let projects = [];
