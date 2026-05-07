@@ -10,7 +10,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json());
 
 // TEMP USER (for testing)
 const users = [
