@@ -5,7 +5,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://team-task-manager-ten-xi.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 app.use(express.json());
