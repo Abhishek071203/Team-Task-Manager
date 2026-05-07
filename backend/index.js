@@ -73,27 +73,15 @@ app.post("/projects", (req, res) => {
 
   res.json(newProject);
 });
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-
-  if (email === user.email && password === user.password) {
-    return res.json({
-      token: "fake-jwt-token",
-      user: { email },
-    });
-  }
-
-  res.status(401).json({ message: "Invalid credentials" });
-});
 
 // TEST ROUTE
-app.get("/", (req, res) => {
-  res.send("Backend working 🚀");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
-});
+
 // In-memory tasks
 let tasks = [];
 
@@ -131,4 +119,27 @@ app.put("/tasks/:id", (req, res) => {
   );
 
   res.json({ message: "Updated" });
+});
+// DASHBOARD STATS
+app.get("/dashboard", (req, res) => {
+  const totalTasks = tasks.length;
+
+  const completedTasks = tasks.filter(
+    (t) => t.status === "Done"
+  ).length;
+
+  const pendingTasks = tasks.filter(
+    (t) => t.status !== "Done"
+  ).length;
+
+  res.json({
+    totalTasks,
+    completedTasks,
+    pendingTasks,
+  });
+});
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
